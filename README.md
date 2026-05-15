@@ -78,3 +78,22 @@ without evaluating all 1,023 combinations.
 ---
 
 ## Dependencies
+All available by default in Google Colab.
+
+---
+
+## References
+
+- Efron, B., Hastie, T., Johnstone, I., & Tibshirani, R. (2004). Least Angle Regression. *Annals of Statistics*, 32(2), 407–499.
+- James, G., Witten, D., Hastie, T., & Tibshirani, R. (2021). *An Introduction to Statistical Learning*. 2nd ed. Springer.
+- Tibshirani, R. (1996). Regression Shrinkage and Selection via the Lasso. *Journal of the Royal Statistical Society: Series B*, 58(1), 267–288.
+- Hoerl, A. E., & Kennard, R. W. (1970). Ridge Regression: Biased Estimation for Nonorthogonal Problems. *Technometrics*, 12(1), 55–67.
+
+---
+
+## AI Assistance
+
+This project was developed with assistance from Anthropic's Claude (claude.ai)
+per USMA DAAW guidelines. Full documentation of AI use is included in
+`MA289_Project3_DAAW_Acknowledgment.pdf` and available at:
+https://claude.ai/share/335d389e-70ff-4fc3-9405-c3dfbb5e0d46
