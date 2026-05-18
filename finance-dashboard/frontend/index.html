@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finance Dashboard</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<header>
+  <div class="logo">Finance<span>Dash</span></div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <button id="btn-refresh" class="btn btn-ghost" style="display:none" onclick="loadDashboard()">
+      ↻ Refresh
+    </button>
+    <button id="btn-connect" class="btn btn-primary" onclick="openPlaidLink()">
+      + Connect Account
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- Empty state shown when no accounts are linked -->
+  <div id="empty-state" style="display:none">
+    <h2>No accounts connected yet</h2>
+    <p>Connect your brokerage, bank, or investment accounts to get started.</p>
+    <button class="btn btn-primary" style="font-size:15px;padding:12px 28px" onclick="openPlaidLink()">
+      + Connect Your First Account
+    </button>
+  </div>
+
+  <!-- Dashboard shown once accounts are linked -->
+  <div id="dashboard" style="display:none">
+
+    <!-- Net worth summary -->
+    <div class="section-title">Summary</div>
+    <div class="summary-grid">
+      <div class="stat-card">
+        <div class="label">Net Worth</div>
+        <div class="value green" id="stat-net-worth">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Total Assets</div>
+        <div class="value" id="stat-assets">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Total Liabilities</div>
+        <div class="value red" id="stat-liabilities">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Accounts</div>
+        <div class="value" id="stat-accounts">—</div>
+      </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="charts-row">
+      <div class="chart-card">
+        <h3>Net Worth Breakdown</h3>
+        <div class="chart-wrap"><canvas id="chart-networth"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h3>Portfolio Allocation</h3>
+        <div class="chart-wrap"><canvas id="chart-allocation"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Accounts -->
+    <div class="section-title" style="margin-top:4px">
+      Accounts
+      <span id="connected-items" style="font-size:12px;font-weight:400;text-transform:none;color:#718096;margin-left:8px"></span>
+    </div>
+    <div id="accounts-grid"></div>
+
+    <!-- Tabs: Transactions / Holdings -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('transactions')">Transactions</button>
+      <button class="tab-btn" onclick="showTab('holdings')">Investment Holdings</button>
+    </div>
+
+    <!-- Transactions -->
+    <div id="tab-transactions" class="table-section">
+      <div class="card table-wrap">
+        <table id="txn-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Institution</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th style="text-align:right">Amount</th>
+            </tr>
+          </thead>
+          <tbody id="txn-tbody">
+            <tr><td colspan="6" style="text-align:center;padding:24px;color:#718096">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Holdings -->
+    <div id="tab-holdings" class="table-section" style="display:none">
+      <div class="card table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Ticker</th>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Institution</th>
+              <th style="text-align:right">Qty</th>
+              <th style="text-align:right">Price</th>
+              <th style="text-align:right">Value</th>
+              <th style="text-align:right">Cost Basis</th>
+              <th style="text-align:right">Gain / Loss</th>
+            </tr>
+          </thead>
+          <tbody id="holdings-tbody">
+            <tr><td colspan="9" style="text-align:center;padding:24px;color:#718096">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Alpaca placeholder -->
+    <div class="section-title" style="margin-top:8px">Trade Execution</div>
+    <div class="alpaca-placeholder">
+      <h3>Alpaca API — Coming Soon</h3>
+      <p style="font-size:13px;margin-top:6px">
+        Set <code>ALPACA_API_KEY</code> and <code>ALPACA_SECRET_KEY</code> in your
+        <code>.env</code> file. Order entry, paper trading, and portfolio rebalancing
+        will be wired here.
+      </p>
+    </div>
+
+    <!-- Connected items management -->
+    <div class="section-title">Connected Institutions</div>
+    <div id="items-list" class="card" style="margin-bottom:24px"></div>
+
+  </div><!-- /dashboard -->
+</main>
+
+<div id="toast"></div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<!-- Plaid Link -->
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+<!-- App logic -->
+<script src="/static/app.js"></script>
+</body>
+</html>
